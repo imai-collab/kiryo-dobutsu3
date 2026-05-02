@@ -1289,11 +1289,11 @@ export default function App() {
                             <span className="text-[#FF5A5A]">消す</span>
                           ) : (
                             <div className="w-[80%] h-[80%] relative pointer-events-none">
-                              <PieceView
-                                type={pt as any}
-                                enemy={pt !== "delete" && editPieceInfo.enemy}
-                                selected={false}
-                              />
+                                <PieceView
+                                  type={pt as any}
+                                  enemy={editPieceInfo.enemy}
+                                  selected={false}
+                                />
                             </div>
                           )}
                         </div>
