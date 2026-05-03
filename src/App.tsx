@@ -362,7 +362,8 @@ export default function App() {
   const [puzzles, setPuzzles] = useState<Problem[]>(defaultPuzzles as Problem[]);
   const isDataLoaded = useRef(false);
 
-  useEffect(() => {
+  const loadPuzzles = () => {
+    isDataLoaded.current = false;
     fetch("/api/puzzles")
       .then(res => res.json())
       .then((data: Problem[]) => {
@@ -376,6 +377,10 @@ export default function App() {
           isDataLoaded.current = true;
         }, 100);
       });
+  };
+
+  useEffect(() => {
+    loadPuzzles();
   }, []);
 
   useEffect(() => {
@@ -1073,6 +1078,14 @@ export default function App() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => {
+                        loadPuzzles();
+                      }}
+                      className="text-xs px-3 py-1 font-bold rounded-lg border-2 bg-[#EAE8E3] border-[#CCCCCC] text-[#634C32] hover:bg-[#D9D9D9] transition-all"
+                    >
+                      同期
+                    </button>
+                    <button
+                      onClick={() => {
                         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(puzzles, null, 2));
                         const downloadAnchorNode = document.createElement('a');
                         downloadAnchorNode.setAttribute("href",     dataStr);
@@ -1289,11 +1302,11 @@ export default function App() {
                             <span className="text-[#FF5A5A]">消す</span>
                           ) : (
                             <div className="w-[80%] h-[80%] relative pointer-events-none">
-                                <PieceView
-                                  type={pt as any}
-                                  enemy={editPieceInfo.enemy}
-                                  selected={false}
-                                />
+                              <PieceView
+                                type={pt as any}
+                                enemy={editPieceInfo.enemy}
+                                selected={false}
+                              />
                             </div>
                           )}
                         </div>
