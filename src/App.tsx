@@ -1078,11 +1078,23 @@ export default function App() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => {
-                        loadPuzzles();
+                        fetch("/api/save-puzzles", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ puzzles }),
+                        })
+                          .then((res) => res.json())
+                          .then(() => {
+                            alert("問題データをサーバーに保存しました！");
+                          })
+                          .catch((e) => {
+                            console.error(e);
+                            alert("保存に失敗しました。");
+                          });
                       }}
                       className="text-xs px-3 py-1 font-bold rounded-lg border-2 bg-[#EAE8E3] border-[#CCCCCC] text-[#634C32] hover:bg-[#D9D9D9] transition-all"
                     >
-                      同期
+                      保存(Sync)
                     </button>
                     <button
                       onClick={() => {
