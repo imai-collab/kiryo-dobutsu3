@@ -829,10 +829,6 @@
         "type": "K",
         "enemy": true
       },
-      "0,3": {
-        "type": "P",
-        "enemy": true
-      },
       "1,2": {
         "type": "S",
         "enemy": false
